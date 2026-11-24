@@ -1,0 +1,9 @@
+pandoc: 3.8.3
+pkgdown: 2.2.1
+pkgdown_sha: ~
+articles:
+  plotsizing: plotsizing.html
+last_built: 2026-11-24T13:39Z
+urls:
+  reference: https://www.elcancu.com/plotsizing/reference
+  article: https://www.elcancu.com/plotsizing/articles
