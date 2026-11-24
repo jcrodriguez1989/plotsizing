@@ -39,7 +39,7 @@ analyze_uniformity_trial <- function(trial, unit_width_m = 1, unit_length_m = 1,
   criterion <- match.arg(criterion)
   smith_method <- match.arg(smith_method)
   M <- .validate_trial(trial)
-  cfg <- plot_configurations(M, unit_width_m, unit_length_m, sd, min_plots)
+  cfg <- trial_configurations(M, unit_width_m, unit_length_m, sd, min_plots)
   smith <- fit_smith(cfg, method = smith_method)
   sup <- fit_cv_surface(cfg)
   sol <- switch(criterion,

@@ -79,4 +79,4 @@ plot_multicrop_curvature()
 citation("plotsizing")
 ```
 
-The package was previously developed under the name `curvaUE`. Older Spanish function names (for example `curvatura_gaussiana()`) are kept so that existing scripts keep working; new code should use the English names.
+The package was previously developed under the name `curvaUE`.

@@ -28,5 +28,4 @@ Imports: stats, graphics, grDevices, ggplot2 (>= 3.4.0), rlang (>=
         1.0.0)
 Suggests: testthat (>= 3.0.0)
 Config/testthat/edition: 3
-LazyData: true
 RoxygenNote: 7.3.3

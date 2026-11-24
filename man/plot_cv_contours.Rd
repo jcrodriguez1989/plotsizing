@@ -9,7 +9,7 @@ plot_cv_contours(surface, configurations, grid_size = 120, target_slope = 1)
 \arguments{
 \item{surface}{Output of fit_cv_surface().}
 
-\item{configurations}{Output of plot_configurations().}
+\item{configurations}{Output of trial_configurations().}
 
 \item{grid_size}{Number of grid points per axis.}
 

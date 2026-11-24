@@ -109,12 +109,8 @@ read_trial_matrix <- function(path, sep = "auto", dec = "auto") {
   M
 }
 
-#' Validate the dimensions of an experimental yield grid
-#'
-#' Checks the numeric matrix before modeling.
-#' @param trial Numeric rows-by-columns yield matrix.
-#' @return A one-row data frame with dimensions, number of basic units, and range.
-#' @export
+# Dimensions, number of basic units and yield range of a validated trial.
+# Internal: describe_trial() reports the same information to users.
 validate_trial_matrix <- function(trial) {
   M <- .validate_trial(trial)
   data.frame(

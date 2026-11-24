@@ -14,7 +14,7 @@ plot_curvature_sections(
 
 \item{criterion}{sectional (default), gaussian, marginal, or all.}
 
-\item{configurations}{Optional output of plot_configurations(), used to
+\item{configurations}{Optional output of trial_configurations(), used to
 set the displayed range.}
 
 \item{target_slope}{Positive target decrease in CV percentage points per

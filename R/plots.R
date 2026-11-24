@@ -29,7 +29,7 @@ plot_trial_heatmap <- function(trial) {
 #' Plot empirical CV profiles
 #'
 #' Shows CV against width and length with the power-law curves.
-#' @param configurations Output of plot_configurations().
+#' @param configurations Output of trial_configurations().
 #' @param surface Output of fit_cv_surface().
 #' @return A ggplot object.
 #' @export
@@ -85,7 +85,7 @@ plot_cv_profiles <- function(configurations, surface) {
 #' Displays fitted CV contours and the Gaussian, simultaneous sectional, and
 #' coordinate-wise marginal-efficiency solutions. The axes are in basic units.
 #' @param surface Output of fit_cv_surface().
-#' @param configurations Output of plot_configurations().
+#' @param configurations Output of trial_configurations().
 #' @param grid_size Number of grid points per axis.
 #' @param target_slope Positive target decrease in CV percentage points per
 #'   basic unit along either coordinate, for the marginal-efficiency solution.
@@ -159,7 +159,7 @@ plot_cv_contours <- function(surface, configurations, grid_size = 120,
 #'
 #' Draws a perspective plot of the CV surface with all three solutions.
 #' @param surface Output of fit_cv_surface().
-#' @param configurations Output of plot_configurations().
+#' @param configurations Output of trial_configurations().
 #' @param theta,phi Perspective viewing angles.
 #' @param target_slope Positive target decrease in CV percentage points per
 #'   basic unit along each coordinate for the marginal-efficiency solution.
@@ -215,7 +215,7 @@ plot_cv_surface <- function(surface, configurations, theta = -35, phi = 25,
 #' "all" to overlay profiles and solution markers for all three methods.
 #' @param surface Output of fit_cv_surface().
 #' @param criterion sectional (default), gaussian, marginal, or all.
-#' @param configurations Optional output of plot_configurations(), used to
+#' @param configurations Optional output of trial_configurations(), used to
 #'   set the displayed range.
 #' @param target_slope Positive target decrease in CV percentage points per
 #'   basic unit, used for the marginal-efficiency solution.

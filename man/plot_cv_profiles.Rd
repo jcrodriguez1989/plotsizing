@@ -7,7 +7,7 @@
 plot_cv_profiles(configurations, surface)
 }
 \arguments{
-\item{configurations}{Output of plot_configurations().}
+\item{configurations}{Output of trial_configurations().}
 
 \item{surface}{Output of fit_cv_surface().}
 }

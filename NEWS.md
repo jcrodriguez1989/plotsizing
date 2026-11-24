@@ -8,9 +8,14 @@
 - Keep the sectional-curvature loci and their guides as sectional features in the multi-crop figure.
 - Update README, Rd usage, tests and CRAN comments; retain the maintainer and authors selected by the project team.
 - Previous Gaussian-curvature, sectional-curvature and Smith estimators and the original example datasets are unchanged.
-- Regenerate the legacy datasets `arroz`, `maiz`, `frijol_nambi` and `vigna` with R: the previous `.rda` files lacked R's object flag, so `dim()` returned `NULL` and they could not be analysed. Yield values are identical to `example_trial()`.
 - Add `URL` and `BugReports` fields pointing to the GitHub repository.
-- Rename the package from `curvaUE` to `plotsizing` before its first CRAN submission. Function names, arguments, datasets and results are unchanged; only `library(curvaUE)` must become `library(plotsizing)`.
+- Rename the package from `curvaUE` to `plotsizing` before its first CRAN submission.
+- Simplify the public API before the first release:
+  - Remove the Spanish function aliases (`curvatura_gaussiana()`, `configuraciones()`, `indice_smith()` and the rest); use the English names.
+  - Remove the datasets `arroz`, `maiz`, `frijol_nambi` and `vigna`; use `example_trial()`, which returns the same yields.
+  - Rename `plot_configurations()` to `trial_configurations()`, since it enumerates plot configurations and does not draw anything.
+  - Make `validate_trial_matrix()` internal; `describe_trial()` reports the same information.
+- Numerical methods and results are unchanged.
 
 ## 0.3.2 - CRAN-check compatibility
 

@@ -2,12 +2,12 @@
 #'
 #' Fits CV=a*width^(-m)*length^(-n) by unweighted nonlinear least squares, with dimensions
 #' in basic units.
-#' @param configurations Output of plot_configurations().
+#' @param configurations Output of trial_configurations().
 #' @return A list with a, m, n, model, residuals, and descriptive RMSE.
 #' @export
 fit_cv_surface <- function(configurations) {
   if (!all(c("cv", "width_ub", "length_ub") %in% names(configurations))) {
-    stop("Missing 'cv', 'width_ub', or 'length_ub' from plot_configurations().", call. = FALSE)
+    stop("Missing 'cv', 'width_ub', or 'length_ub' from trial_configurations().", call. = FALSE)
   }
   d <- data.frame(cv = configurations$cv, x = configurations$width_ub, y = configurations$length_ub)
   d <- d[is.finite(d$cv) & d$cv > 0 &

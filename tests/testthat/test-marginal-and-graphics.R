@@ -57,7 +57,7 @@ test_that("marginal rejects invalid target slopes and avoids intermediate overfl
 test_that("all graphics expose marginal-efficiency solution markers", {
   skip_if_not_installed("ggplot2")
   trial <- example_trial("rice")
-  cfg <- plot_configurations(trial)
+  cfg <- trial_configurations(trial)
   surface <- fit_cv_surface(cfg)
   find_criteria <- function(plot) {
     unlist(lapply(plot$layers, function(layer) {
@@ -93,7 +93,7 @@ test_that("all graphics expose marginal-efficiency solution markers", {
 
 test_that("three-dimensional plotting builds for multiple marginal targets", {
   trial <- example_trial("rice")
-  cfg <- plot_configurations(trial)
+  cfg <- trial_configurations(trial)
   surface <- fit_cv_surface(cfg)
   path <- tempfile(fileext = ".pdf")
   grDevices::pdf(path)

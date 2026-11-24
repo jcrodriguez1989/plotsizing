@@ -9,20 +9,9 @@ test_that("example crop grids have the expected matrix dimensions", {
     expect_equal(dim(m), expected[[nm]])
     expect_equal(nrow(as_long_trial_data(m)), prod(expected[[nm]]))
     expect_equal(
-      nrow(plot_configurations(m)),
+      nrow(trial_configurations(m)),
       if (nm %in% c("rice", "maize")) 35L else 23L
     )
-  }
-})
-test_that("legacy datasets are valid data frames equal to example_trial()", {
-  legacy <- c(arroz = "rice", maiz = "maize", frijol_nambi = "common_bean", vigna = "cowpea")
-  for (nm in names(legacy)) {
-    e <- new.env()
-    utils::data(list = nm, package = "plotsizing", envir = e)
-    x <- e[[nm]]
-    expect_true(is.data.frame(x))
-    expect_equal(dim(x), dim(example_trial(legacy[[nm]])))
-    expect_equal(unname(as.matrix(x)), unname(example_trial(legacy[[nm]])))
   }
 })
 test_that("long data preserve the original row-column position", {
@@ -39,7 +28,7 @@ test_that("arbitrary rectangular grids are enumerated exactly", {
     m <- matrix(seq_len(prod(dim_)), nrow = dim_[1], ncol = dim_[2])
     nd <- length(which(dim_[1] %% seq_len(dim_[1]) == 0L)) *
       length(which(dim_[2] %% seq_len(dim_[2]) == 0L)) - 1L
-    expect_equal(nrow(plot_configurations(m)), nd)
+    expect_equal(nrow(trial_configurations(m)), nd)
     expect_equal(c(validate_trial_matrix(m)$rows, validate_trial_matrix(m)$columns), dim_)
   }
 })
@@ -62,8 +51,8 @@ test_that("a column-header CSV imports but row indexes are rejected", {
   expect_error(read_trial_matrix(f), "row index")
 })
 test_that("invalid matrices give useful errors", {
-  expect_error(plot_configurations(matrix(c(1, NA, 2, 3), 2)), "NA")
-  expect_error(plot_configurations(matrix(-1, 3, 4)), "negative")
-  expect_error(plot_configurations(matrix(1, 4, 4), min_plots = 1), "min_plots")
-  expect_error(fit_smith(plot_configurations(matrix(1, 4, 4))), "V1")
+  expect_error(trial_configurations(matrix(c(1, NA, 2, 3), 2)), "NA")
+  expect_error(trial_configurations(matrix(-1, 3, 4)), "negative")
+  expect_error(trial_configurations(matrix(1, 4, 4), min_plots = 1), "min_plots")
+  expect_error(fit_smith(trial_configurations(matrix(1, 4, 4))), "V1")
 })

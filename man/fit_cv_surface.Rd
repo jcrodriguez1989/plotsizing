@@ -7,7 +7,7 @@
 fit_cv_surface(configurations)
 }
 \arguments{
-\item{configurations}{Output of plot_configurations().}
+\item{configurations}{Output of trial_configurations().}
 }
 \value{
 A list with a, m, n, model, residuals, and descriptive RMSE.

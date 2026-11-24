@@ -2,11 +2,11 @@
 #'
 #' The main method is Smith (1938) WLS with weights M-1 and a free intercept; b_prime
 #' applies to the finite observed field.
-#' @param configurations Output of plot_configurations().
+#' @param configurations Output of trial_configurations().
 #' @param method smith1938 (default), nls, log, or unweighted_log.
 #' @return A list with b_prime, model, weights, and fit diagnostics.
 #' @examples
-#' cfg <- plot_configurations(example_trial("rice"))
+#' cfg <- trial_configurations(example_trial("rice"))
 #' fit_smith(cfg)$b_prime
 #' @export
 fit_smith <- function(configurations, method = c("smith1938", "nls", "log", "unweighted_log")) {

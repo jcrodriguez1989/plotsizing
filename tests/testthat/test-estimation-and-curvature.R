@@ -14,7 +14,7 @@ test_that("closed-form solutions match the mathematical reference", {
   expect_gte(g$K, s$K)
 })
 test_that("Smith's weighted regression matches direct WLS", {
-  cfg <- plot_configurations(example_trial("rice"))
+  cfg <- trial_configurations(example_trial("rice"))
   s <- fit_smith(cfg)
   reference <- lm(log(unit_variance) ~ log(area), data = cfg, weights = n_plots - 1)
   expect_equal(s$b_prime, .826791, tolerance = 1e-4)
@@ -24,8 +24,8 @@ test_that("Smith's weighted regression matches direct WLS", {
 })
 test_that("Smith uses sample variance even for population CV", {
   m <- example_trial("rice")
-  a <- plot_configurations(m, sd = "sample")
-  b <- plot_configurations(m, sd = "population")
+  a <- trial_configurations(m, sd = "sample")
+  b <- trial_configurations(m, sd = "population")
   expect_equal(a$unit_variance, b$unit_variance)
   expect_equal(a$smith_normalized_variance, b$smith_normalized_variance)
   expect_equal(fit_smith(a)$b_prime, fit_smith(b)$b_prime)
@@ -50,14 +50,14 @@ test_that("all four example surfaces fit within numerical tolerances", {
     cowpea = c(24.94977, .35910, .31766)
   )
   for (nm in names(values)) {
-    s <- fit_cv_surface(plot_configurations(example_trial(nm)))
+    s <- fit_cv_surface(trial_configurations(example_trial(nm)))
     expect_equal(c(s$a, s$m, s$n), values[[nm]], tolerance = 2e-3)
   }
 })
 test_that("plotting routines return ggplot objects", {
   skip_if_not_installed("ggplot2")
   m <- example_trial("rice")
-  c <- plot_configurations(m)
+  c <- trial_configurations(m)
   s <- fit_cv_surface(c)
   expect_s3_class(plot_trial_heatmap(m), "ggplot")
   expect_s3_class(plot_cv_profiles(c, s), "ggplot")
@@ -69,7 +69,7 @@ test_that("plotting routines return ggplot objects", {
 
 test_that("3D plotting uses the exported perspective transformer", {
   trial <- example_trial("rice")
-  cfg <- plot_configurations(trial)
+  cfg <- trial_configurations(trial)
   surface <- fit_cv_surface(cfg)
   path <- tempfile(fileext = ".pdf")
   grDevices::pdf(path)
@@ -86,7 +86,7 @@ test_that("3D plotting uses the exported perspective transformer", {
 test_that("ggplot objects can be built with data-mask column references", {
   skip_if_not_installed("ggplot2")
   trial <- example_trial("rice")
-  cfg <- plot_configurations(trial)
+  cfg <- trial_configurations(trial)
   surface <- fit_cv_surface(cfg)
   plots <- list(
     plot_trial_heatmap(trial),

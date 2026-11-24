@@ -1,5 +1,5 @@
 library(plotsizing)
-configurations <- plot_configurations(example_trial("rice"))
+configurations <- trial_configurations(example_trial("rice"))
 smith <- fit_smith(configurations)
 reference <- lm(log(unit_variance) ~ log(area),
                 data=configurations,weights=n_plots-1)

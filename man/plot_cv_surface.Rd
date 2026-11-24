@@ -15,7 +15,7 @@ plot_cv_surface(
 \arguments{
 \item{surface}{Output of fit_cv_surface().}
 
-\item{configurations}{Output of plot_configurations().}
+\item{configurations}{Output of trial_configurations().}
 
 \item{theta, phi}{Perspective viewing angles.}
 

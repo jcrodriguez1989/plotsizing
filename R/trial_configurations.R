@@ -9,14 +9,14 @@
 #' @param min_plots Minimum number of experimental units per configuration (at least 2).
 #' @return A data frame of configurations, conventional and auxiliary variances, and CVs.
 #' @usage
-#' plot_configurations(
+#' trial_configurations(
 #'   trial, unit_width_m = 1, unit_length_m = 1,
 #'   sd = c("sample", "population"), min_plots = 2L
 #' )
 #' @export
-plot_configurations <- function(trial, unit_width_m = 1, unit_length_m = 1,
-                                sd = c("sample", "population"),
-                                min_plots = 2L) {
+trial_configurations <- function(trial, unit_width_m = 1, unit_length_m = 1,
+                                 sd = c("sample", "population"),
+                                 min_plots = 2L) {
   sd <- match.arg(sd)
   M <- .validate_trial(trial)
   .validate_positive_scalar(unit_width_m, "unit_width_m")

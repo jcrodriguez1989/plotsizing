@@ -10,7 +10,7 @@ fit_smith(
 )
 }
 \arguments{
-\item{configurations}{Output of plot_configurations().}
+\item{configurations}{Output of trial_configurations().}
 
 \item{method}{smith1938 (default), nls, log, or unweighted_log.}
 }
@@ -22,6 +22,6 @@ The main method is Smith (1938) WLS with weights M-1 and a free intercept; b_pri
 applies to the finite observed field.
 }
 \examples{
-cfg <- plot_configurations(example_trial("rice"))
+cfg <- trial_configurations(example_trial("rice"))
 fit_smith(cfg)$b_prime
 }
