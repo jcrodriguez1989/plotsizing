@@ -12,7 +12,7 @@ read_trial_matrix(path, sep = "auto", dec = "auto")
 }
 \value{A numeric matrix containing yields in their original spatial positions.}
 \examples{
-path <- system.file("extdata", "trial_rice.csv", package = "curvaUE")
+path <- system.file("extdata", "trial_rice.csv", package = "plotsizing")
 M <- read_trial_matrix(path)
 dim(M)
 }

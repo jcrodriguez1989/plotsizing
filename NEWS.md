@@ -10,6 +10,7 @@
 - Previous Gaussian-curvature, sectional-curvature and Smith estimators and the original example datasets are unchanged.
 - Regenerate the legacy datasets `arroz`, `maiz`, `frijol_nambi` and `vigna` with R: the previous `.rda` files lacked R's object flag, so `dim()` returned `NULL` and they could not be analysed. Yield values are identical to `example_trial()`.
 - Add `URL` and `BugReports` fields pointing to the GitHub repository.
+- Rename the package from `curvaUE` to `plotsizing` before its first CRAN submission. Function names, arguments, datasets and results are unchanged; only `library(curvaUE)` must become `library(plotsizing)`.
 
 ## 0.3.2 — CRAN-check compatibility
 

@@ -1,8 +1,8 @@
-# CRAN submission comments — curvaUE 0.3.3
+# CRAN submission comments — plotsizing 0.3.3
 
 ## Submission
 
-This would be the first submission of `curvaUE` to CRAN.
+This would be the first submission of `plotsizing` to CRAN.
 
 ## Previously completed checks (different source version: 0.3.2)
 

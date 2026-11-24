@@ -1,4 +1,4 @@
-library(curvaUE)
+library(plotsizing)
 configurations <- plot_configurations(example_trial("rice"))
 smith <- fit_smith(configurations)
 reference <- lm(log(unit_variance) ~ log(area),

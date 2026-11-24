@@ -1,4 +1,4 @@
 library(testthat)
-library(curvaUE)
+library(plotsizing)
 
-test_check("curvaUE")
+test_check("plotsizing")

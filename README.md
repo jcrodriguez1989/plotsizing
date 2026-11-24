@@ -1,6 +1,8 @@
-# curvaUE 0.3.3 — Experimental-Unit Dimensions from Bivariate CV Surfaces
+# plotsizing 0.3.3 — Experimental-Unit Dimensions from Bivariate CV Surfaces
 
-`curvaUE` analyzes agricultural uniformity trials to estimate continuous experimental-unit dimensions with **three mathematically distinct criteria** on a fitted coefficient-of-variation (CV) surface. The public API and help pages are in English. Legacy Spanish aliases are retained for older scripts.
+`plotsizing` analyzes agricultural uniformity trials to estimate continuous experimental-unit dimensions with **three mathematically distinct criteria** on a fitted coefficient-of-variation (CV) surface. The public API and help pages are in English. Legacy Spanish aliases are retained for older scripts.
+
+Unlike one-dimensional approaches such as `trialSizing` or `optsize`, which estimate plot size from the CV-versus-area curve and choose the shape afterwards, `plotsizing` estimates plot width and length jointly from the bivariate CV surface. The package was previously developed under the name `curvaUE`.
 
 ## Input
 
@@ -14,7 +16,7 @@ C1,C2,C3,C4
 ```
 
 ```r
-library(curvaUE)
+library(plotsizing)
 trial <- read_trial_matrix("path/to/trial.csv")
 validate_trial_matrix(trial)
 ```
@@ -86,22 +88,22 @@ Install from the directory containing `DESCRIPTION`:
 
 ```r
 install.packages("devtools")
-devtools::install("path/to/curvaUE", upgrade = "never")
-library(curvaUE)
+devtools::install("path/to/plotsizing", upgrade = "never")
+library(plotsizing)
 ```
 
 Two example scripts are included within the installed package:
 
 ```r
-source(system.file("examples", "CHECK_SMITH_1938.R", package = "curvaUE"))
-source(system.file("examples", "MIN_TWO_PLOTS_EXAMPLE.R", package = "curvaUE"))
+source(system.file("examples", "CHECK_SMITH_1938.R", package = "plotsizing"))
+source(system.file("examples", "MIN_TWO_PLOTS_EXAMPLE.R", package = "plotsizing"))
 ```
 
 Before CRAN submission, run from a checkout or extracted directory:
 
 ```r
 # Requires an installed LaTeX distribution to build the manual.
-devtools::check("path/to/curvaUE", args = "--as-cran",
+devtools::check("path/to/plotsizing", args = "--as-cran",
                 remote = TRUE, manual = TRUE, document = FALSE,
                 error_on = "never")
 ```

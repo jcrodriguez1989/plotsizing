@@ -14,7 +14,7 @@ test_that("legacy datasets are valid data frames equal to example_trial()", {
   legacy <- c(arroz="rice", maiz="maize", frijol_nambi="common_bean", vigna="cowpea")
   for (nm in names(legacy)) {
     e <- new.env()
-    utils::data(list = nm, package = "curvaUE", envir = e)
+    utils::data(list = nm, package = "plotsizing", envir = e)
     x <- e[[nm]]
     expect_true(is.data.frame(x))
     expect_equal(dim(x), dim(example_trial(legacy[[nm]])))

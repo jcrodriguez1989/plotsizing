@@ -103,7 +103,7 @@ as_long_trial_data <- function(trial) {
 #' @export
 example_trial <- function(crop = c("rice", "maize", "common_bean", "cowpea")) {
   crop <- match.arg(crop)
-  path <- system.file("extdata", paste0("trial_", crop, ".csv"), package = "curvaUE")
+  path <- system.file("extdata", paste0("trial_", crop, ".csv"), package = "plotsizing")
   if (!nzchar(path))
     stop("The example CSV is missing for crop: ", crop, call. = FALSE)
   read_trial_matrix(path)

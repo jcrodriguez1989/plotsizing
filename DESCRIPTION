@@ -1,4 +1,4 @@
-Package: curvaUE
+Package: plotsizing
 Title: Experimental Unit Dimensions from Bivariate CV Surfaces
 Version: 0.3.3
 Authors@R: c(
@@ -19,8 +19,8 @@ Description: Estimates experimental-unit dimensions from uniformity trials using
     publication-ready figures. Analysis is performed
     in basic-unit coordinates; physical units are converted only afterwards.
 License: MIT + file LICENSE
-URL: https://github.com/jcrodriguez1989/curvaUE
-BugReports: https://github.com/jcrodriguez1989/curvaUE/issues
+URL: https://github.com/jcrodriguez1989/plotsizing
+BugReports: https://github.com/jcrodriguez1989/plotsizing/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 Depends: R (>= 4.1.0)
