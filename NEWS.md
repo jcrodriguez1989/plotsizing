@@ -7,7 +7,7 @@
 - Show Gaussian, sectional and marginal solution markers in contour plots, perspective (3D) surfaces and multi-crop figures; support marginal and all-method comparisons in coordinate-section plots.
 - Keep the sectional-curvature loci and their guides as sectional features in the multi-crop figure.
 - Update README, Rd usage, tests and CRAN comments; retain the maintainer and authors selected by the project team.
-- Previous Gaussian-curvature, sectional-curvature and Smith estimators and the original example datasets are unchanged.
+- Previous Gaussian-curvature, sectional-curvature and Smith estimators and the example yield data are unchanged.
 - Add `URL` and `BugReports` fields pointing to the GitHub repository.
 - Rename the package from `curvaUE` to `plotsizing` before its first CRAN submission.
 - Simplify the public API before the first release:
@@ -26,7 +26,7 @@
 - Use the `.data` pronoun in ggplot2 aesthetics to avoid global-binding notes.
 - Qualify `stats::setNames()` in multicrop plotting.
 - Wrap usage signatures in four Rd files; add persistent roxygen `@usage` declarations.
-- Update roxygen metadata to 8.1.1 and declare `rlang` as a direct import.
+- Declare `rlang` as a direct import.
 - Statistical methods, original datasets, public signatures, and numerical outputs are unchanged.
 
 
