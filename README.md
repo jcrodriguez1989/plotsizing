@@ -1,12 +1,32 @@
-# plotsizing 0.3.3 — Experimental-Unit Dimensions from Bivariate CV Surfaces
+# plotsizing
 
-`plotsizing` analyzes agricultural uniformity trials to estimate continuous experimental-unit dimensions with **three mathematically distinct criteria** on a fitted coefficient-of-variation (CV) surface. The public API and help pages are in English. Legacy Spanish aliases are retained for older scripts.
+plotsizing estimates the size and shape of the experimental unit (plot) from agricultural uniformity trials. It fits a bivariate surface to the coefficient of variation (CV) of all plot configurations that can be formed from the trial, and derives plot width and length jointly from that surface.
 
-Unlike one-dimensional approaches such as `trialSizing` or `optsize`, which estimate plot size from the CV-versus-area curve and choose the shape afterwards, `plotsizing` estimates plot width and length jointly from the bivariate CV surface. The package was previously developed under the name `curvaUE`.
+Packages such as `agricolae`, `optsize` and `trialSizing` estimate plot size from the one-dimensional relation between CV and plot area, and choose the shape afterwards. plotsizing works on the two-dimensional surface instead, so size and shape come out of the same calculation.
 
-## Input
+## Installation
 
-Supply a numeric yield matrix (physical rows = matrix rows, physical columns = matrix columns). In a CSV, the first line contains **column headers**, but no separate row-number or index column:
+```r
+# install.packages("remotes")
+remotes::install_github("jcrodriguez1989/plotsizing")
+```
+
+## Example
+
+The package includes four uniformity trials from Guanacaste, Costa Rica: rice and maize (20 x 20 basic units) and Nambí common bean and cowpea (10 x 20 basic units).
+
+```r
+library(plotsizing)
+
+trial <- example_trial("rice")
+result <- analyze_uniformity_trial(trial, criterion = "all")
+
+result$surface[c("a", "m", "n")]   # fitted CV surface
+result$smith$b_prime               # Smith (1938) heterogeneity index
+result$solution                    # width, length, area and CV for each method
+```
+
+To analyse your own trial, save the yields as a CSV with one column per field column, a header row and no row-number column:
 
 ```csv
 C1,C2,C3,C4
@@ -16,100 +36,47 @@ C1,C2,C3,C4
 ```
 
 ```r
-library(plotsizing)
-trial <- read_trial_matrix("path/to/trial.csv")
-validate_trial_matrix(trial)
+trial <- read_trial_matrix("my_trial.csv")
+result <- analyze_uniformity_trial(trial, unit_width_m = 1, unit_length_m = 1,
+                                   criterion = "all")
 ```
 
-Grids may be rectangular. Four real example matrices are included: rice and maize (20 x 20 basic units each), Nambí common bean and cowpea (10 x 20 basic units each). For example, `example_trial("rice")` returns the rice grid.
+`unit_width_m` and `unit_length_m` give the physical size of one basic unit and are only used to convert the results to metres.
 
-## Mathematical criteria
+## Methods
 
-The nonlinear CV surface is fitted by unweighted nonlinear least squares:
+The CV surface
 
-\[ CV(x,y) = a x^{-m}y^{-n}, \qquad a,m,n > 0, \]
+$$CV(x, y) = a\, x^{-m} y^{-n}$$
 
-with width `x` and length `y` measured in **basic units (BU)**, and CV in percent. The three criteria are:
+is fitted by nonlinear least squares, with `x` the plot width and `y` the plot length in basic units, and CV in percent. Three criteria are available, each with a closed-form solution:
 
-1. **Gaussian curvature:** the point of maximum Gaussian curvature of the fitted surface.
-2. **Simultaneous sectional curvature:** the intersection of the maxima of the two coordinate-section curvatures.
-3. **Coordinate-wise marginal efficiency:** the point satisfying `m * CV(x,y) / x = target_slope` and `n * CV(x,y) / y = target_slope`. The target is a **positive CV decrease in percentage points per additional basic unit**, applied independently to width and length. The point has `y/x = n/m` and is not, in general, a maximum-curvature point. It is also **not** a marginal-efficiency optimum defined per unit of total area or cost.
+- `"gaussian"`: the point of maximum Gaussian curvature of the surface.
+- `"sectional"`: the point where the CV curves along width and along length both reach their maximum curvature, the two-dimensional version of the modified maximum-curvature method.
+- `"marginal"`: the point where the CV decreases by `target_slope` percentage points per additional basic unit, both along width and along length.
 
-The methods yield continuous model-based solutions. They do not automatically restrict dimensions to admissible discrete plot geometries. Compare the results with `result$configurations` and with experimental-design and agronomic constraints. Any solution beyond the observed field requires extrapolation.
+The package also fits the Smith (1938) variance law by weighted least squares (weights `M - 1`, free intercept) and enumerates every exact rectangular partition of the trial with at least two plots.
 
-## Main analysis
+All calculations use basic-unit coordinates and CV in percent. The results depend on that choice of scale, and on `target_slope` for the marginal criterion, so the continuous solutions should be compared with the plot configurations that are feasible in the field.
 
-```r
-trial <- example_trial("rice")
-result <- analyze_uniformity_trial(
-  trial = trial,
-  unit_width_m = 1, unit_length_m = 1,
-  min_plots = 2,
-  criterion = "all",              # gaussian, sectional, marginal
-  smith_method = "smith1938",
-  target_slope = 1               # CV percentage points per BU
-)
-result$dimensions
-result$smith$b_prime
-result$surface[c("a", "m", "n")]
-result$solution
-```
-
-The default `criterion = "both"` still returns **only Gaussian and sectional curvature**, preserving established workflows. Alternatively select `"gaussian"`, `"sectional"`, `"marginal"` or `"all"`. The new `target_slope` argument was **appended after `smith_method`**, so existing positional calls remain compatible.
-
-Results are calculated in BU coordinates, then converted to metres and square metres in `result$solution`. For the marginal criterion, `target_slope` always refers to BU dimensions, not physical metres. The code enumerates every exact rectangular or square partition that leaves at least two experimental units (for 20 x 20 grids, including 200-BU configurations with two units). The Smith (1938) method uses weighted regression of the log of the conventional unit variance on log area, with weights `n_plots - 1` and a free intercept. Its `b_prime` estimate applies to the observed finite field; it is not corrected to infinite-field conditions.
-
-## Graphics: three criteria
+## Plots
 
 ```r
 cfg <- result$configurations
 surface <- result$surface
+
 plot_trial_heatmap(trial)
 plot_cv_profiles(cfg, surface)
-plot_cv_contours(surface, cfg, target_slope = 1)
-plot_cv_surface(surface, cfg, target_slope = 1)
-plot_curvature_sections(surface, criterion = "all",
-                        configurations = cfg, target_slope = 1)
-plot_multicrop_curvature(target_slope = 1)
+plot_cv_contours(surface, cfg)
+plot_cv_surface(surface, cfg)
+plot_curvature_sections(surface, criterion = "all", configurations = cfg)
+plot_multicrop_curvature()
 ```
 
-`plot_cv_contours()` and `plot_cv_surface()` show **all three points**. `plot_curvature_sections()` supports all three separately (`criterion = "marginal"`) or overlaid (`"all"`). The multi-crop figure shows both sectional-curvature loci plus symbols for all three criteria; its dashed guides and numerical labels continue to refer **only to the sectional solution**. Changing `target_slope` changes the marginal solution, not either curvature solution.
-
-### Marginal criterion independently
+## Citation
 
 ```r
-marginal_efficiency_2d(a = 22.95414, m = 0.60814, n = 0.23216,
-                       target_slope = 1)
+citation("plotsizing")
 ```
 
-## Install, test and prepare for CRAN
-
-Install from the directory containing `DESCRIPTION`:
-
-```r
-install.packages("devtools")
-devtools::install("path/to/plotsizing", upgrade = "never")
-library(plotsizing)
-```
-
-Two example scripts are included within the installed package:
-
-```r
-source(system.file("examples", "CHECK_SMITH_1938.R", package = "plotsizing"))
-source(system.file("examples", "MIN_TWO_PLOTS_EXAMPLE.R", package = "plotsizing"))
-```
-
-Before CRAN submission, run from a checkout or extracted directory:
-
-```r
-# Requires an installed LaTeX distribution to build the manual.
-devtools::check("path/to/plotsizing", args = "--as-cran",
-                remote = TRUE, manual = TRUE, document = FALSE,
-                error_on = "never")
-```
-
-See `tests/testthat/` for numerical tests. Cross-platform checks for version 0.3.2 **do not validate the added functionality of version 0.3.3**; run fresh checks on 0.3.3 prior to submission.
-
-## Compatibility and limitations
-
-The original Gaussian and sectional algorithms, Smith implementation, and the four example yield grids are unchanged from 0.3.2. Spanish-language function aliases remain for older scripts. Source figures and numerical methods are intended for methodological comparison, not as universal cost-optimal agronomic recommendations. Grouped experimental units reuse original uniformity-trial observations.
+The package was previously developed under the name `curvaUE`. Older Spanish function names (for example `curvatura_gaussiana()`) are kept so that existing scripts keep working; new code should use the English names.

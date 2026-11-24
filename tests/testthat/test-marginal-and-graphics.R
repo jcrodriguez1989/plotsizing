@@ -1,27 +1,35 @@
 test_that("existing positional API remains backward compatible", {
   trial <- example_trial("rice")
   named <- analyze_uniformity_trial(trial, smith_method = "smith1938")
-  positional <- analyze_uniformity_trial(trial, 1, 1, "sample", 2L,
-                                         "both", "smith1938")
+  positional <- analyze_uniformity_trial(
+    trial, 1, 1, "sample", 2L,
+    "both", "smith1938"
+  )
   expect_equal(positional$smith$b_prime, named$smith$b_prime)
-  expect_identical(as.character(positional$solution$criterion),
-                   c("gaussian", "sectional"))
+  expect_identical(
+    as.character(positional$solution$criterion),
+    c("gaussian", "sectional")
+  )
   expect_equal(positional$solution, named$solution)
 })
 
 test_that("marginal solution solves independent first-order conditions", {
-  for (params in list(c(22.95414, .60814, .23216),
-                      c(56.03311, .36025, .26291),
-                      c(36.43530, .32730, .35966),
-                      c(24.94977, .35910, .31766))) {
-    a <- params[1L]; m <- params[2L]; n <- params[3L]
+  for (params in list(
+    c(22.95414, .60814, .23216),
+    c(56.03311, .36025, .26291),
+    c(36.43530, .32730, .35966),
+    c(24.94977, .35910, .31766)
+  )) {
+    a <- params[1L]
+    m <- params[2L]
+    n <- params[3L]
     for (tau in c(.5, 1, 2)) {
       pt <- marginal_efficiency_2d(a, m, n, target_slope = tau)
       expect_equal(m * pt$cv / pt$width, tau, tolerance = 1e-10)
       expect_equal(n * pt$cv / pt$length, tau, tolerance = 1e-10)
       expect_equal(pt$length / pt$width, n / m, tolerance = 1e-10)
       expect_equal(pt$area, pt$width * pt$length, tolerance = 1e-10)
-      expect_equal(pt$K, gaussian_curvature_at(a,m,n,pt$width,pt$length))
+      expect_equal(pt$K, gaussian_curvature_at(a, m, n, pt$width, pt$length))
     }
   }
 })
@@ -54,8 +62,9 @@ test_that("all graphics expose marginal-efficiency solution markers", {
   find_criteria <- function(plot) {
     unlist(lapply(plot$layers, function(layer) {
       d <- layer$data
-      if (is.data.frame(d) && "criterion" %in% names(d))
+      if (is.data.frame(d) && "criterion" %in% names(d)) {
         return(as.character(d$criterion))
+      }
       character(0)
     }), use.names = FALSE)
   }
@@ -63,12 +72,16 @@ test_that("all graphics expose marginal-efficiency solution markers", {
   p <- plot_cv_contours(surface, cfg)
   expect_true(all(methods %in% find_criteria(p)))
   expect_error(ggplot2::ggplot_build(p), NA)
-  sections <- plot_curvature_sections(surface, criterion = "all",
-                                       configurations = cfg)
+  sections <- plot_curvature_sections(surface,
+    criterion = "all",
+    configurations = cfg
+  )
   expect_true(all(methods %in% find_criteria(sections)))
   expect_error(ggplot2::ggplot_build(sections), NA)
-  marginal_sections <- plot_curvature_sections(surface, criterion = "marginal",
-                                               configurations = cfg)
+  marginal_sections <- plot_curvature_sections(surface,
+    criterion = "marginal",
+    configurations = cfg
+  )
   expect_error(ggplot2::ggplot_build(marginal_sections), NA)
   crops <- plot_multicrop_curvature(grid_size = 40L)
   markers <- find_criteria(crops)
@@ -84,7 +97,13 @@ test_that("three-dimensional plotting builds for multiple marginal targets", {
   surface <- fit_cv_surface(cfg)
   path <- tempfile(fileext = ".pdf")
   grDevices::pdf(path)
-  on.exit({grDevices::dev.off(); unlink(path)}, add = TRUE)
+  on.exit(
+    {
+      grDevices::dev.off()
+      unlink(path)
+    },
+    add = TRUE
+  )
   expect_invisible(plot_cv_surface(surface, cfg, target_slope = 1))
   expect_invisible(plot_cv_surface(surface, cfg, target_slope = .5))
 })

@@ -1,9 +1,9 @@
 # Changelog
 
-## 0.3.3 — Coordinate-wise marginal efficiency and complete graphics integration
+## 0.3.3 - Coordinate-wise marginal efficiency and complete graphics integration
 
 - Add `marginal_efficiency_2d()` with a closed-form, log-scale numerical evaluation of the coordinate-wise marginal-efficiency solution and a configurable target slope.
-- Integrate `criterion = "marginal"` and `criterion = "all"` into `analyze_uniformity_trial()`. The `target_slope` argument now follows the existing `smith_method` argument to preserve positional call compatibility.
+- Integrate `criterion = "marginal"` and `criterion = "all"` into `analyze_uniformity_trial()`. The default remains `criterion = "both"` (Gaussian and sectional curvature), and the new `target_slope` argument follows the existing `smith_method` argument, so existing calls give the same results.
 - Show Gaussian, sectional and marginal solution markers in contour plots, perspective (3D) surfaces and multi-crop figures; support marginal and all-method comparisons in coordinate-section plots.
 - Keep the sectional-curvature loci and their guides as sectional features in the multi-crop figure.
 - Update README, Rd usage, tests and CRAN comments; retain the maintainer and authors selected by the project team.
@@ -12,7 +12,7 @@
 - Add `URL` and `BugReports` fields pointing to the GitHub repository.
 - Rename the package from `curvaUE` to `plotsizing` before its first CRAN submission. Function names, arguments, datasets and results are unchanged; only `library(curvaUE)` must become `library(plotsizing)`.
 
-## 0.3.2 — CRAN-check compatibility
+## 0.3.2 - CRAN-check compatibility
 
 - Fix 3D overlay by using `grDevices::trans3d()`, the exported function.
 - Use the `.data` pronoun in ggplot2 aesthetics to avoid global-binding notes.
@@ -22,7 +22,7 @@
 - Statistical methods, original datasets, public signatures, and numerical outputs are unchanged.
 
 
-## 0.3.1 — RStudio test corrections
+## 0.3.1 - RStudio test corrections
 
 - Update two CSV import tests to compare un-named numeric values while asserting
   that column headers are preserved and row labels remain absent.
@@ -32,7 +32,7 @@
 - Numerical methods, four trial matrices, and results are unchanged.
 
 
-## 0.3.0 — English-first public API
+## 0.3.0 - English-first public API
 
 - English function names, arguments, output fields, messages, legends, examples, tests, and CSV names.
 - The underlying numerical methods and four original yield grids are unchanged.

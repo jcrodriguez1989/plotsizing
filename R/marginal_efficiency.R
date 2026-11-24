@@ -33,7 +33,7 @@
 marginal_efficiency_2d <- function(a, m, n, target_slope = 1) {
   .validate_parameters(a, m, n)
   if (!is.numeric(target_slope) || length(target_slope) != 1L ||
-      !is.finite(target_slope) || target_slope <= 0) {
+    !is.finite(target_slope) || target_slope <= 0) {
     stop("'target_slope' must be a single positive number.")
   }
   # Compute the closed-form solution on the log scale to avoid overflow
@@ -46,9 +46,12 @@ marginal_efficiency_2d <- function(a, m, n, target_slope = 1) {
   cv <- exp(log(a) - m * log_x - n * log_y)
   if (any(!is.finite(c(x, y, cv))) || any(c(x, y, cv) <= 0)) {
     stop("The marginal-efficiency solution is outside the representable numeric range.",
-         call. = FALSE)
+      call. = FALSE
+    )
   }
-  data.frame(criterion = "marginal", width = x, length = y,
-             area = x * y, cv = cv,
-             K = gaussian_curvature_at(a, m, n, x, y))
+  data.frame(
+    criterion = "marginal", width = x, length = y,
+    area = x * y, cv = cv,
+    K = gaussian_curvature_at(a, m, n, x, y)
+  )
 }

@@ -1,13 +1,36 @@
-# Legacy built-in datasets; users should use example_trial() instead.
-#' Rice uniformity-trial yield grid (20 by 20 basic units)
-#' @format A 20 x 20 numeric data frame; each cell is a basic unit.
+# Legacy built-in datasets; new code should use example_trial().
+#' Rice uniformity trial (legacy dataset)
+#'
+#' A 20 x 20 basic-unit yield grid kept for backward compatibility.
+#' For new analyses, use `example_trial("rice")`, which returns the same
+#' yields as a numeric matrix.
+#' @format A 20 x 20 numeric data frame; each cell is the yield of one basic unit.
+#' @seealso [example_trial()]
 "arroz"
-#' Maize uniformity-trial yield grid (20 by 20 basic units)
-#' @format A 20 x 20 numeric data frame; each cell is a basic unit.
+
+#' Maize uniformity trial (legacy dataset)
+#'
+#' A 20 x 20 basic-unit yield grid kept for backward compatibility.
+#' For new analyses, use `example_trial("maize")`, which returns the same
+#' yields as a numeric matrix.
+#' @format A 20 x 20 numeric data frame; each cell is the yield of one basic unit.
+#' @seealso [example_trial()]
 "maiz"
-#' Nambi common-bean uniformity-trial yield grid (10 by 20 basic units)
-#' @format A 10 x 20 numeric data frame; each cell is a basic unit.
+
+#' Nambi common bean uniformity trial (legacy dataset)
+#'
+#' A 10 x 20 basic-unit yield grid kept for backward compatibility.
+#' For new analyses, use `example_trial("common_bean")`, which returns the same
+#' yields as a numeric matrix.
+#' @format A 10 x 20 numeric data frame; each cell is the yield of one basic unit.
+#' @seealso [example_trial()]
 "frijol_nambi"
-#' Cowpea uniformity-trial yield grid (10 by 20 basic units)
-#' @format A 10 x 20 numeric data frame; each cell is a basic unit.
+
+#' Cowpea uniformity trial (legacy dataset)
+#'
+#' A 10 x 20 basic-unit yield grid kept for backward compatibility.
+#' For new analyses, use `example_trial("cowpea")`, which returns the same
+#' yields as a numeric matrix.
+#' @format A 10 x 20 numeric data frame; each cell is the yield of one basic unit.
+#' @seealso [example_trial()]
 "vigna"

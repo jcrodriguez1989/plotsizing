@@ -27,8 +27,10 @@ max_gaussian_curvature <- function(a, m, n) {
   fc <- (a * m^(-m) * n^(-n) * Uc^(m / 2) * Vc^(n / 2))^(1 / (m + n + 1))
   xc <- m * fc / sqrt(Uc)
   yc <- n * fc / sqrt(Vc)
-  data.frame(criterion = "gaussian", width = xc, length = yc,
-             area = xc * yc, cv = fc, K = gaussian_curvature_at(a, m, n, xc, yc))
+  data.frame(
+    criterion = "gaussian", width = xc, length = yc,
+    area = xc * yc, cv = fc, K = gaussian_curvature_at(a, m, n, xc, yc)
+  )
 }
 
 #' Simultaneous sectional curvature solution
@@ -43,6 +45,8 @@ simultaneous_sectional_curvature <- function(a, m, n) {
   fs <- (a * q(m)^(-m / 2) * q(n)^(-n / 2))^(1 / (m + n + 1))
   xs <- sqrt(q(m)) * fs
   ys <- sqrt(q(n)) * fs
-  data.frame(criterion = "sectional", width = xs, length = ys,
-             area = xs * ys, cv = fs, K = gaussian_curvature_at(a, m, n, xs, ys))
+  data.frame(
+    criterion = "sectional", width = xs, length = ys,
+    area = xs * ys, cv = fs, K = gaussian_curvature_at(a, m, n, xs, ys)
+  )
 }
