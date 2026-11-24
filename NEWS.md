@@ -8,6 +8,8 @@
 - Keep the sectional-curvature loci and their guides as sectional features in the multi-crop figure.
 - Update README, Rd usage, tests and CRAN comments; retain the maintainer and authors selected by the project team.
 - Previous Gaussian-curvature, sectional-curvature and Smith estimators and the original example datasets are unchanged.
+- Regenerate the legacy datasets `arroz`, `maiz`, `frijol_nambi` and `vigna` with R: the previous `.rda` files lacked R's object flag, so `dim()` returned `NULL` and they could not be analysed. Yield values are identical to `example_trial()`.
+- Add `URL` and `BugReports` fields pointing to the GitHub repository.
 
 ## 0.3.2 — CRAN-check compatibility
 

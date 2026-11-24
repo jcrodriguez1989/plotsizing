@@ -10,6 +10,17 @@ test_that("example crop grids have the expected matrix dimensions", {
                  if (nm %in% c("rice","maize")) 35L else 23L)
   }
 })
+test_that("legacy datasets are valid data frames equal to example_trial()", {
+  legacy <- c(arroz="rice", maiz="maize", frijol_nambi="common_bean", vigna="cowpea")
+  for (nm in names(legacy)) {
+    e <- new.env()
+    utils::data(list = nm, package = "curvaUE", envir = e)
+    x <- e[[nm]]
+    expect_true(is.data.frame(x))
+    expect_equal(dim(x), dim(example_trial(legacy[[nm]])))
+    expect_equal(unname(as.matrix(x)), unname(example_trial(legacy[[nm]])))
+  }
+})
 test_that("long data preserve the original row-column position", {
   m <- matrix(1:24,4,6,byrow=TRUE)
   d <- as_long_trial_data(m)
