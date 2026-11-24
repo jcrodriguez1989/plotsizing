@@ -124,6 +124,8 @@ validate_trial_matrix <- function(trial) {
 #' Adds row and column indices without changing spatial cell positions.
 #' @param trial Numeric yield matrix.
 #' @return A data frame with row, column, and yield.
+#' @examples
+#' head(as_long_trial_data(example_trial("cowpea")))
 #' @export
 as_long_trial_data <- function(trial) {
   M <- .validate_trial(trial)
@@ -136,9 +138,15 @@ as_long_trial_data <- function(trial) {
 
 #' Load one of four example uniformity trials
 #'
-#' Loads rice (20x20), maize (20x20), common bean (10x20), or cowpea (10x20).
-#' @param crop One of rice, maize, common_bean, or cowpea.
-#' @return A numeric yield matrix.
+#' Loads one of four uniformity trials carried out in Guanacaste, Costa Rica:
+#' rice and maize (20 rows x 20 columns of basic units), Nambi common bean
+#' (*Phaseolus vulgaris*) and cowpea (*Vigna unguiculata*) (10 rows x 20
+#' columns). Each basic unit measures 1 m x 1 m and each cell holds its yield.
+#' @param crop One of `"rice"`, `"maize"`, `"common_bean"` or `"cowpea"`.
+#' @return A numeric yield matrix whose rows and columns are the rows and
+#'   columns of the field.
+#' @source The CSV files in `inst/extdata`; see `data-raw/README.md` in the
+#'   package source for their provenance.
 #' @examples
 #' dim(example_trial("rice"))
 #' @export

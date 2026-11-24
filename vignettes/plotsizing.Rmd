@@ -1,0 +1,155 @@
+---
+title: "Plot size and shape from a uniformity trial"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Plot size and shape from a uniformity trial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.width = 7, fig.height = 4.5)
+```
+
+A uniformity trial is a field sown with a single treatment and harvested in small basic units (BU). Grouping adjacent basic units into larger plots shows how the coefficient of variation (CV) between plots falls as plots get wider and longer. plotsizing uses that information to estimate the width and length of the experimental unit.
+
+This vignette walks through a complete analysis of the rice trial included in the package, and then compares the four example crops.
+
+```{r setup}
+library(plotsizing)
+```
+
+## The data
+
+`example_trial()` returns one of four uniformity trials from Guanacaste, Costa Rica, as a numeric matrix: rows of the matrix are rows of the field and columns are columns of the field. Each cell is the yield of one basic unit of 1 m x 1 m.
+
+```{r data}
+rice <- example_trial("rice")
+dim(rice)
+describe_trial(rice)
+```
+
+```{r heatmap, fig.height = 5, fig.alt = "Heat map of rice yield in a 20 by 20 grid of basic units."}
+plot_trial_heatmap(rice)
+```
+
+To analyse your own trial, save it as a CSV file with a header row (for example `C1,C2,...`) and no row-number column, and read it with `read_trial_matrix("my_trial.csv")`.
+
+## The complete analysis
+
+`analyze_uniformity_trial()` runs every step: it enumerates the plot configurations, fits the Smith (1938) variance law, fits the CV surface and computes the solutions. `criterion = "all"` returns the three criteria; the default, `"both"`, returns only the two curvature criteria.
+
+```{r analysis}
+result <- analyze_uniformity_trial(rice,
+  unit_width_m = 1, unit_length_m = 1,
+  criterion = "all"
+)
+result
+```
+
+The printed result shows the main numbers. `summary()` adds the descriptive statistics of the basic units and the standard errors of the surface parameters.
+
+```{r summary}
+summary(result)
+```
+
+## Step by step
+
+The same analysis can be run one step at a time, which is useful to inspect or replace any of them.
+
+### Plot configurations
+
+`trial_configurations()` enumerates every way of partitioning the field exactly into rectangular plots with at least two plots, and computes the CV of the plot totals for each one. The 20 x 20 rice trial allows 35 configurations.
+
+```{r configurations}
+cfg <- trial_configurations(rice)
+nrow(cfg)
+head(cfg[, c("width_ub", "length_ub", "area", "n_plots", "cv")])
+```
+
+### Smith's variance law
+
+`fit_smith()` fits Smith's (1938) empirical law by regressing the log of the variance per basic unit on the log of plot area, weighting each configuration by its number of plots minus one. The slope, `b'`, measures soil heterogeneity: values near 0 mean neighbouring basic units are highly correlated, values near 1 mean they are nearly independent.
+
+```{r smith}
+smith <- fit_smith(cfg)
+smith$b_prime
+```
+
+### The CV surface
+
+`fit_cv_surface()` fits
+
+$$CV(x, y) = a \, x^{-m} y^{-n},$$
+
+where `x` is plot width and `y` plot length, both in basic units, and CV is in percent. The exponents `m` and `n` measure how fast the CV falls along each direction. In rice `m` is much larger than `n`: widening a plot reduces the CV faster than lengthening it.
+
+```{r surface}
+surface <- fit_cv_surface(cfg)
+surface[c("a", "m", "n")]
+```
+
+```{r profiles, fig.alt = "Empirical and fitted CV against plot width and against plot length for rice."}
+plot_cv_profiles(cfg, surface)
+```
+
+### The three criteria
+
+Each criterion locates one point on the fitted surface and has a closed-form solution:
+
+- `max_gaussian_curvature()`: the point of maximum Gaussian curvature of the surface.
+- `simultaneous_sectional_curvature()`: the point where the CV curve along the width and the CV curve along the length both reach their maximum curvature. In each direction this reproduces the classical modified maximum-curvature method.
+- `marginal_efficiency_2d()`: the point where one more basic unit of width, or of length, reduces the CV by `target_slope` percentage points.
+
+```{r criteria}
+rbind(
+  max_gaussian_curvature(surface$a, surface$m, surface$n),
+  simultaneous_sectional_curvature(surface$a, surface$m, surface$n),
+  marginal_efficiency_2d(surface$a, surface$m, surface$n, target_slope = 1)
+)
+```
+
+The three points lie close together on the surface, but they correspond to different plot areas.
+
+```{r contours, fig.height = 5, fig.alt = "Contours of the fitted CV surface for rice with the Gaussian, sectional and marginal solutions marked."}
+plot(result)
+```
+
+```{r sections, fig.alt = "CV along width and along length through each of the three solutions for rice."}
+plot(result, which = "sections")
+```
+
+## Choosing the target slope
+
+The marginal criterion depends directly on `target_slope`, which is measured in CV percentage points per basic unit. A smaller target asks for a smaller gain per added basic unit, so the plots become larger. The curvature criteria do not depend on it.
+
+```{r slopes}
+slopes <- c(0.5, 1, 2)
+do.call(rbind, lapply(slopes, function(s) {
+  cbind(
+    target_slope = s,
+    marginal_efficiency_2d(surface$a, surface$m, surface$n, target_slope = s)
+  )
+}))
+```
+
+## Four crops
+
+```{r crops}
+crops <- c("rice", "maize", "common_bean", "cowpea")
+solutions <- do.call(rbind, lapply(crops, function(crop) {
+  r <- analyze_uniformity_trial(example_trial(crop), criterion = "all")
+  data.frame(crop = crop, r$solution[, c("criterion", "width", "length", "area", "cv")])
+}))
+solutions
+```
+
+```{r multicrop, fig.height = 6.5, fig.alt = "Fitted CV contours for rice, maize, common bean and cowpea with the solutions of the three criteria."}
+plot_multicrop_curvature()
+```
+
+## Interpreting the results
+
+- All calculations are made in basic units, with the CV in percent; `unit_width_m` and `unit_length_m` only convert the final dimensions to metres. Because curvature depends on the scale of the axes, the solutions depend on that choice: a trial harvested in smaller basic units, or a CV expressed as a proportion, gives different physical plot sizes.
+- The solutions are continuous. They should be rounded to plot dimensions that can actually be laid out in the field, and checked against the precision required and the land available.
+- The CVs of different configurations are computed from the same basic units, so they are not independent observations. Standard errors of the surface parameters are approximate.

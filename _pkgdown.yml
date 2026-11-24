@@ -1,0 +1,37 @@
+url: https://www.elcancu.com/plotsizing/
+
+template:
+  bootstrap: 5
+
+reference:
+  - title: Complete analysis
+    contents:
+      - analyze_uniformity_trial
+      - print.plotsizing_analysis
+      - summary.plotsizing_analysis
+      - plot.plotsizing_analysis
+  - title: Trial data
+    contents:
+      - read_trial_matrix
+      - example_trial
+      - describe_trial
+      - as_long_trial_data
+  - title: Configurations and fitted models
+    contents:
+      - trial_configurations
+      - fit_smith
+      - fit_cv_surface
+  - title: Criteria
+    contents:
+      - max_gaussian_curvature
+      - simultaneous_sectional_curvature
+      - marginal_efficiency_2d
+      - gaussian_curvature_at
+  - title: Plots
+    contents:
+      - starts_with("plot_")
+
+articles:
+  - title: Get started
+    contents:
+      - plotsizing

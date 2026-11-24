@@ -33,3 +33,6 @@ Creates faceted CV contours and the two sectional-curvature loci. Marks
 the Gaussian, simultaneous sectional, and marginal-efficiency solutions.
 The dashed guides and numerical labels refer only to the sectional solution.
 }
+\examples{
+plot_multicrop_curvature()
+}

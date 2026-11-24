@@ -18,6 +18,8 @@
 #'   unit_width_m = 1, unit_length_m = 1,
 #'   cv_interval = 5, grid_size = 180L, target_slope = 1
 #' )
+#' @examples
+#' plot_multicrop_curvature()
 #' @export
 plot_multicrop_curvature <- function(
   trials = NULL,

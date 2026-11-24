@@ -15,3 +15,6 @@ A one-row data frame of summary statistics.
 \description{
 Calculates descriptive statistics of basic-unit yields.
 }
+\examples{
+describe_trial(example_trial("maize"))
+}

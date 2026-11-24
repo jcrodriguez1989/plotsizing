@@ -4,6 +4,12 @@
 #' @param a,m,n Positive power-law surface parameters.
 #' @param x,y Positive basic-unit coordinates.
 #' @return A numeric Gaussian-curvature value.
+#' @examples
+#' # Curvature at the maximum-Gaussian-curvature point of the rice surface
+#' g <- max_gaussian_curvature(a = 22.95, m = 0.608, n = 0.232)
+#' gaussian_curvature_at(a = 22.95, m = 0.608, n = 0.232, x = g$width, y = g$length)
+#' # Reference case: the maximum of CV = 1 / (x * y) is 1/3 at (1, 1)
+#' gaussian_curvature_at(a = 1, m = 1, n = 1, x = 1, y = 1)
 #' @export
 gaussian_curvature_at <- function(a, m, n, x, y) {
   .validate_parameters(a, m, n)
@@ -19,6 +25,8 @@ gaussian_curvature_at <- function(a, m, n, x, y) {
 #' Closed-form maximum of Gaussian curvature for the separable power-law surface.
 #' @param a,m,n Positive power-law surface parameters.
 #' @return A one-row data frame with continuous dimensions, area, predicted CV, and K.
+#' @examples
+#' max_gaussian_curvature(a = 22.95, m = 0.608, n = 0.232)
 #' @export
 max_gaussian_curvature <- function(a, m, n) {
   .validate_parameters(a, m, n)
@@ -38,6 +46,8 @@ max_gaussian_curvature <- function(a, m, n) {
 #' Closed-form intersection of the two coordinate-section maximum-curvature loci.
 #' @param a,m,n Positive power-law surface parameters.
 #' @return A one-row data frame with continuous dimensions, area, predicted CV, and K.
+#' @examples
+#' simultaneous_sectional_curvature(a = 22.95, m = 0.608, n = 0.232)
 #' @export
 simultaneous_sectional_curvature <- function(a, m, n) {
   .validate_parameters(a, m, n)

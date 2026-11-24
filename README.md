@@ -21,10 +21,12 @@ library(plotsizing)
 trial <- example_trial("rice")
 result <- analyze_uniformity_trial(trial, criterion = "all")
 
-result$surface[c("a", "m", "n")]   # fitted CV surface
-result$smith$b_prime               # Smith (1938) heterogeneity index
-result$solution                    # width, length, area and CV for each method
+result            # trial, Smith index, fitted surface and solutions
+summary(result)   # adds descriptive statistics and standard errors
+plot(result)      # CV contours with the three solutions
 ```
+
+The vignette walks through a complete analysis: `vignette("plotsizing")`.
 
 To analyse your own trial, save the yields as a CSV with one column per field column, a header row and no row-number column:
 
@@ -60,6 +62,8 @@ The package also fits the Smith (1938) variance law by weighted least squares (w
 All calculations use basic-unit coordinates and CV in percent. The results depend on that choice of scale, and on `target_slope` for the marginal criterion, so the continuous solutions should be compared with the plot configurations that are feasible in the field.
 
 ## Plots
+
+`plot(result, which = ...)` draws `"contours"`, `"surface"`, `"sections"`, `"profiles"` or `"heatmap"`. The underlying functions can also be called directly:
 
 ```r
 cfg <- result$configurations

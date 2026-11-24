@@ -17,3 +17,7 @@ A ggplot object.
 \description{
 Shows CV against width and length with the power-law curves.
 }
+\examples{
+cfg <- trial_configurations(example_trial("rice"))
+plot_cv_profiles(cfg, fit_cv_surface(cfg))
+}

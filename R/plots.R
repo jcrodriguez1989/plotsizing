@@ -4,6 +4,8 @@
 #' @param trial Numeric yield matrix.
 #' @return A ggplot object.
 #' @importFrom rlang .data
+#' @examples
+#' plot_trial_heatmap(example_trial("rice"))
 #' @export
 plot_trial_heatmap <- function(trial) {
   M <- .validate_trial(trial)
@@ -32,6 +34,9 @@ plot_trial_heatmap <- function(trial) {
 #' @param configurations Output of trial_configurations().
 #' @param surface Output of fit_cv_surface().
 #' @return A ggplot object.
+#' @examples
+#' cfg <- trial_configurations(example_trial("rice"))
+#' plot_cv_profiles(cfg, fit_cv_surface(cfg))
 #' @export
 plot_cv_profiles <- function(configurations, surface) {
   a <- surface$a
@@ -91,6 +96,9 @@ plot_cv_profiles <- function(configurations, surface) {
 #'   basic unit along either coordinate, for the marginal-efficiency solution.
 #' @return A ggplot object. Points outside the displayed configuration range
 #'   correspond to extrapolation; the plotting window is extended to show them.
+#' @examples
+#' cfg <- trial_configurations(example_trial("rice"))
+#' plot_cv_contours(fit_cv_surface(cfg), cfg)
 #' @export
 plot_cv_contours <- function(surface, configurations, grid_size = 120,
                              target_slope = 1) {
@@ -164,6 +172,9 @@ plot_cv_contours <- function(surface, configurations, grid_size = 120,
 #' @param target_slope Positive target decrease in CV percentage points per
 #'   basic unit along each coordinate for the marginal-efficiency solution.
 #' @return Draws a base-R plot and returns invisibly.
+#' @examples
+#' cfg <- trial_configurations(example_trial("rice"))
+#' plot_cv_surface(fit_cv_surface(cfg), cfg)
 #' @export
 plot_cv_surface <- function(surface, configurations, theta = -35, phi = 25,
                             target_slope = 1) {
@@ -226,6 +237,9 @@ plot_cv_surface <- function(surface, configurations, theta = -35, phi = 25,
 #'   surface, criterion = c("sectional", "gaussian", "marginal", "all"),
 #'   configurations = NULL, target_slope = 1
 #' )
+#' @examples
+#' cfg <- trial_configurations(example_trial("rice"))
+#' plot_curvature_sections(fit_cv_surface(cfg), criterion = "all", configurations = cfg)
 #' @export
 plot_curvature_sections <- function(surface,
                                     criterion = c("sectional", "gaussian", "marginal", "all"),

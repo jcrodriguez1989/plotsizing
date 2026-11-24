@@ -26,3 +26,8 @@ A data frame of configurations, conventional and auxiliary variances, and CVs.
 Forms all exact rectangular and square partitions with at least two experimental units.
 Smith uses sample variance regardless of the optional CV denominator.
 }
+\examples{
+cfg <- trial_configurations(example_trial("rice"))
+nrow(cfg)
+head(cfg[, c("width_ub", "length_ub", "n_plots", "cv")])
+}

@@ -15,3 +15,6 @@ A ggplot object.
 \description{
 Displays the yield associated with each basic unit.
 }
+\examples{
+plot_trial_heatmap(example_trial("rice"))
+}

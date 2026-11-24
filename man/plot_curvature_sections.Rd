@@ -29,3 +29,7 @@ Shows width and length CV profiles through the selected Gaussian,
 simultaneous sectional, or marginal-efficiency solution. Use criterion =
 "all" to overlay profiles and solution markers for all three methods.
 }
+\examples{
+cfg <- trial_configurations(example_trial("rice"))
+plot_curvature_sections(fit_cv_surface(cfg), criterion = "all", configurations = cfg)
+}

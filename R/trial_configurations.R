@@ -13,6 +13,10 @@
 #'   trial, unit_width_m = 1, unit_length_m = 1,
 #'   sd = c("sample", "population"), min_plots = 2L
 #' )
+#' @examples
+#' cfg <- trial_configurations(example_trial("rice"))
+#' nrow(cfg)
+#' head(cfg[, c("width_ub", "length_ub", "n_plots", "cv")])
 #' @export
 trial_configurations <- function(trial, unit_width_m = 1, unit_length_m = 1,
                                  sd = c("sample", "population"),

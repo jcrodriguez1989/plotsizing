@@ -28,3 +28,7 @@ Draws a base-R plot and returns invisibly.
 \description{
 Draws a perspective plot of the CV surface with all three solutions.
 }
+\examples{
+cfg <- trial_configurations(example_trial("rice"))
+plot_cv_surface(fit_cv_surface(cfg), cfg)
+}

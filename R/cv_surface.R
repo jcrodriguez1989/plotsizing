@@ -4,6 +4,10 @@
 #' in basic units.
 #' @param configurations Output of trial_configurations().
 #' @return A list with a, m, n, model, residuals, and descriptive RMSE.
+#' @examples
+#' cfg <- trial_configurations(example_trial("rice"))
+#' surface <- fit_cv_surface(cfg)
+#' surface[c("a", "m", "n")]
 #' @export
 fit_cv_surface <- function(configurations) {
   if (!all(c("cv", "width_ub", "length_ub") %in% names(configurations))) {

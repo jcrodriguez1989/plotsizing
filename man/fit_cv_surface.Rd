@@ -16,3 +16,8 @@ A list with a, m, n, model, residuals, and descriptive RMSE.
 Fits CV=a*width^(-m)*length^(-n) by unweighted nonlinear least squares, with dimensions
 in basic units.
 }
+\examples{
+cfg <- trial_configurations(example_trial("rice"))
+surface <- fit_cv_surface(cfg)
+surface[c("a", "m", "n")]
+}

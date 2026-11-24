@@ -3,6 +3,8 @@
 #' Calculates descriptive statistics of basic-unit yields.
 #' @param trial Numeric yield matrix.
 #' @return A one-row data frame of summary statistics.
+#' @examples
+#' describe_trial(example_trial("maize"))
 #' @export
 describe_trial <- function(trial) {
   M <- .validate_trial(trial)

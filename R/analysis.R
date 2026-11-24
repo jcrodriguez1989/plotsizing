@@ -14,12 +14,19 @@
 #' @param target_slope Positive target decrease of the CV, in percentage points
 #'   per basic unit along each coordinate. Used when `criterion` is
 #'   `"marginal"` or `"all"`; default 1.
-#' @return A list with `descriptives`, `dimensions`, `long_data`, `smith`,
-#'   `surface`, `configurations`, `solution` and `basic_unit_dimensions_m`.
+#' @return An object of class `plotsizing_analysis`: a list with `trial`,
+#'   `descriptives`, `dimensions`, `long_data`, `smith`, `surface`,
+#'   `configurations`, `solution`, `basic_unit_dimensions_m` and `settings`.
 #'   The solution includes widths and lengths in basic units and in metres.
+#'   It has [print()][print.plotsizing_analysis()],
+#'   [summary()][summary.plotsizing_analysis()] and
+#'   [plot()][plot.plotsizing_analysis()] methods.
 #' @examples
 #' result <- analyze_uniformity_trial(example_trial("rice"), criterion = "all")
+#' result
 #' result$solution
+#' summary(result)
+#' plot(result)
 #' @usage
 #' analyze_uniformity_trial(
 #'   trial, unit_width_m = 1, unit_length_m = 1,
@@ -63,11 +70,19 @@ analyze_uniformity_trial <- function(trial, unit_width_m = 1, unit_length_m = 1,
   sol$length <- sol$length_ub * unit_length_m
   sol$area <- sol$width * sol$length
   sol$area_m2 <- sol$area
-  list(
-    descriptives = describe_trial(M),
-    dimensions = validate_trial_matrix(M),
-    long_data = as_long_trial_data(M), smith = smith,
-    surface = sup, configurations = cfg, solution = sol,
-    basic_unit_dimensions_m = c(width = unit_width_m, length = unit_length_m)
+  structure(
+    list(
+      trial = M,
+      descriptives = describe_trial(M),
+      dimensions = validate_trial_matrix(M),
+      long_data = as_long_trial_data(M), smith = smith,
+      surface = sup, configurations = cfg, solution = sol,
+      basic_unit_dimensions_m = c(width = unit_width_m, length = unit_length_m),
+      settings = list(
+        criterion = criterion, smith_method = smith_method,
+        target_slope = target_slope, min_plots = min_plots, sd = sd
+      )
+    ),
+    class = "plotsizing_analysis"
   )
 }

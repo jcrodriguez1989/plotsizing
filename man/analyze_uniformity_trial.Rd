@@ -32,9 +32,13 @@ per basic unit along each coordinate. Used when \code{criterion} is
 \code{"marginal"} or \code{"all"}; default 1.}
 }
 \value{
-A list with \code{descriptives}, \code{dimensions}, \code{long_data}, \code{smith},
-\code{surface}, \code{configurations}, \code{solution} and \code{basic_unit_dimensions_m}.
+An object of class \code{plotsizing_analysis}: a list with \code{trial},
+\code{descriptives}, \code{dimensions}, \code{long_data}, \code{smith}, \code{surface},
+\code{configurations}, \code{solution}, \code{basic_unit_dimensions_m} and \code{settings}.
 The solution includes widths and lengths in basic units and in metres.
+It has \link[=print.plotsizing_analysis]{print()},
+\link[=summary.plotsizing_analysis]{summary()} and
+\link[=plot.plotsizing_analysis]{plot()} methods.
 }
 \description{
 Integrates input checks, configurations, a weighted Smith estimate,
@@ -43,5 +47,8 @@ solution(s).
 }
 \examples{
 result <- analyze_uniformity_trial(example_trial("rice"), criterion = "all")
+result
 result$solution
+summary(result)
+plot(result)
 }

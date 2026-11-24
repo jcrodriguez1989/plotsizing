@@ -24,3 +24,7 @@ correspond to extrapolation; the plotting window is extended to show them.
 Displays fitted CV contours and the Gaussian, simultaneous sectional, and
 coordinate-wise marginal-efficiency solutions. The axes are in basic units.
 }
+\examples{
+cfg <- trial_configurations(example_trial("rice"))
+plot_cv_contours(fit_cv_surface(cfg), cfg)
+}

@@ -15,6 +15,9 @@
   - Remove the datasets `arroz`, `maiz`, `frijol_nambi` and `vigna`; use `example_trial()`, which returns the same yields.
   - Rename `plot_configurations()` to `trial_configurations()`, since it enumerates plot configurations and does not draw anything.
   - Make `validate_trial_matrix()` internal; `describe_trial()` reports the same information.
+- `analyze_uniformity_trial()` now returns an object of class `plotsizing_analysis` (still a list, with two new elements, `trial` and `settings`), with `print()`, `summary()` and `plot()` methods.
+- Add examples to every exported function and a vignette with a complete workflow.
+- Document the origin of the example trials in `example_trial()` and `data-raw/README.md`.
 - Numerical methods and results are unchanged.
 
 ## 0.3.2 - CRAN-check compatibility

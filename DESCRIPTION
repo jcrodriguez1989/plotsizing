@@ -19,13 +19,18 @@ Description: Estimates experimental-unit dimensions from uniformity trials using
     publication-ready figures. Analysis is performed
     in basic-unit coordinates; physical units are converted only afterwards.
 License: MIT + file LICENSE
-URL: https://github.com/jcrodriguez1989/plotsizing
+URL: https://github.com/jcrodriguez1989/plotsizing,
+    https://www.elcancu.com/plotsizing/
 BugReports: https://github.com/jcrodriguez1989/plotsizing/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 Depends: R (>= 4.1.0)
 Imports: stats, graphics, grDevices, ggplot2 (>= 3.4.0), rlang (>=
         1.0.0)
-Suggests: testthat (>= 3.0.0)
+Suggests:
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+VignetteBuilder: knitr
 Config/testthat/edition: 3
 RoxygenNote: 7.3.3

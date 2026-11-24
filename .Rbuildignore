@@ -1,3 +1,9 @@
 ^cran-comments\.md$
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^data-raw$
+^vignettes/\.gitignore$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^\.github$

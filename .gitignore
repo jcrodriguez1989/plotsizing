@@ -3,3 +3,6 @@
 .Rproj.user/
 *.Rcheck/
 *.tar.gz
+/doc/
+/Meta/
+/docs/

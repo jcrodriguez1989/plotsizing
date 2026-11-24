@@ -3,17 +3,25 @@
 \name{example_trial}
 \alias{example_trial}
 \title{Load one of four example uniformity trials}
+\source{
+The CSV files in \code{inst/extdata}; see \code{data-raw/README.md} in the
+package source for their provenance.
+}
 \usage{
 example_trial(crop = c("rice", "maize", "common_bean", "cowpea"))
 }
 \arguments{
-\item{crop}{One of rice, maize, common_bean, or cowpea.}
+\item{crop}{One of \code{"rice"}, \code{"maize"}, \code{"common_bean"} or \code{"cowpea"}.}
 }
 \value{
-A numeric yield matrix.
+A numeric yield matrix whose rows and columns are the rows and
+columns of the field.
 }
 \description{
-Loads rice (20x20), maize (20x20), common bean (10x20), or cowpea (10x20).
+Loads one of four uniformity trials carried out in Guanacaste, Costa Rica:
+rice and maize (20 rows x 20 columns of basic units), Nambi common bean
+(\emph{Phaseolus vulgaris}) and cowpea (\emph{Vigna unguiculata}) (10 rows x 20
+columns). Each basic unit measures 1 m x 1 m and each cell holds its yield.
 }
 \examples{
 dim(example_trial("rice"))

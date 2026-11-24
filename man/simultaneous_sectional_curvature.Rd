@@ -15,3 +15,6 @@ A one-row data frame with continuous dimensions, area, predicted CV, and K.
 \description{
 Closed-form intersection of the two coordinate-section maximum-curvature loci.
 }
+\examples{
+simultaneous_sectional_curvature(a = 22.95, m = 0.608, n = 0.232)
+}

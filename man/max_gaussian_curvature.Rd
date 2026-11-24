@@ -15,3 +15,6 @@ A one-row data frame with continuous dimensions, area, predicted CV, and K.
 \description{
 Closed-form maximum of Gaussian curvature for the separable power-law surface.
 }
+\examples{
+max_gaussian_curvature(a = 22.95, m = 0.608, n = 0.232)
+}

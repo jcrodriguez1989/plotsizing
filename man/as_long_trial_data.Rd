@@ -15,3 +15,6 @@ A data frame with row, column, and yield.
 \description{
 Adds row and column indices without changing spatial cell positions.
 }
+\examples{
+head(as_long_trial_data(example_trial("cowpea")))
+}
